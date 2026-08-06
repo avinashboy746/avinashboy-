@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - avinash boy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://store-images.s-microsoft.com/image/apps.29741.14581193029730121.5999c68b-7fd8-48ec-b0cb-3e37e1d7ec03.38839d35-0654-480a-b909-a5107b3f9d14?q=90&w=480&h=270');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+            transition: background-image 0.3s ease;
+        }
+
+        .background-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .background-button.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Snowfall effect */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            z-index: 10;
+            font-size: 1.5em;
+            color: #fff;
+            opacity: 0.8;
+            user-select: none;
+            pointer-events: none;
+            animation: fall 10s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+            100% {
+                transform: translateX(200px) translateY(100vh);
+            }
+        }
+
+        /* Apply a blur effect on the background */
+        ::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        /* Loading spinner styles */
+        #loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            flex-direction: column;
+        }
+
+        /* Spinner animation */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+
+        /* Spinner animation keyframes */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Timer styles */
+        #time-counter {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        /* Current time styles */
+        #current-time {
+            font-size: 18px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        #welcome-screen {
+            display: none;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        #welcome-screen h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #f00;
+            text-shadow: 2px 2px 5px #900;
+        }
+
+        #welcome-screen img {
+            max-width: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #welcome-screen img:hover {
+            transform: scale(1.1);
+        }
+
+        .links {
+            margin-top: 20px;
+        }
+
+        .links img {
+            max-width: 32px;
+            vertical-align: middle;
+        }
+
+        .links a {
+            color: #f00;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 10px;
+            display: inline-block;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .links a:hover {
+            transform: scale(1.1);
+            text-shadow: 2px 2px 5px #900;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Blue dot animation */
+        .click-dot {
+            position: absolute;
+            background-color: #3498db;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: clickAnimation 0.6s forwards;
+        }
+
+        @keyframes clickAnimation {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(2);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <!-- Loading spinner -->
+        <div class="spinner"></div>
+        <!-- Time counter -->
+        <div id="time-counter">Loading: 0s</div>
+    </div>
+
+    <div id="welcome-screen">
+        <h1>Welcome to avinash boy</h1>
+        <img src="https://cdn.craftingstore.net/rPPmDHlLQ1/3f83dbc3bf12aa0fc0d31af3c32d9a31/mjzfaxxv7ce3umj5tvq7.jpg" alt="Welcome Image">
+        <div class="links">
+            <a href="https://discord.gg/mdmqEYgXM" target="_blank">
+                <img src="https://img.icons8.com/fluency/48/discord-logo.png" alt="Discord Logo"> Join our Discord
+            </a>
+            <a href="https://www.youtube.com/@avinashshah_01" target="_blank">
+                <img src="https://img.icons8.com/fluency/48/youtube-play.png" alt="YouTube Logo"> Subscribe on YouTube
+            </a>
+        </div>
+        <!-- Current time under the links -->
+        <div id="current-time"></div>
+    </div>
+
+    <button class="background-button" id="background-toggle">Change Background</button>
+
+    <script>
+        const loadingScreen = document.getElementById("loading");
+        const welcomeScreen = document.getElementById("welcome-screen");
+        const timeCounter = document.getElementById("time-counter");
+        const currentTimeElement = document.getElementById("current-time");
+        const body = document.querySelector('body');
+        const backgroundButton = document.getElementById('background-toggle');
+
+        let seconds = 0;
+        let isDefaultBackground = true;
+
+        // Update the time counter every second
+        const timer = setInterval(() => {
+            seconds++;
+            timeCounter.textContent = `Loading: ${seconds}s`;
+        }, 1000);
+
+        // Display current time in the top right
+        function updateCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            currentTimeElement.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Update time every second
+        setInterval(updateCurrentTime, 1000);
+
+        // Simulate a 3-second loading time
+        setTimeout(() => {
+            clearInterval(timer); // Stop the timer
+            loadingScreen.style.display = "none";
+            welcomeScreen.style.display = "block";
+            backgroundButton.classList.add('visible'); // Show the background button
+        }, 3000);
+
+        // Snowflake generation
+        function createSnowflake() {
+            const snowflake = document.createElement("div");
+            snowflake.classList.add("snowflake");
+            snowflake.innerHTML = "&#10052;";
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;  // random fall duration
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 10000);  // Remove snowflake after it falls
+        }
+
+        // Create snowflakes at intervals
+        setInterval(createSnowflake, 200);
+
+        // Blue dot animation on click
+        document.body.addEventListener('click', (event) => {
+            const dot = document.createElement('div');
+            dot.classList.add('click-dot');
+            dot.style.width = '30px';
+            dot.style.height = '30px';
+            dot.style.left = `${event.pageX - 15}px`; // Position relative to mouse click
+            dot.style.top = `${event.pageY - 15}px`;  // Position relative to mouse click
+            document.body.appendChild(dot);
+
+            // Remove the dot after animation ends
+            setTimeout(() => {
+                dot.remove();
+            }, 600);
+        });
+
+        // Toggle background on button click
+        backgroundButton.addEventListener('click', () => {
+            if (isDefaultBackground) {
+                body.style.backgroundImage = 'url("https://store-images.s-microsoft.com/image/apps.58378.13850085746326678.826cc014-d610-46af-bdb3-c5c96be4d22c.64287a91-c69e-4723-bb61-03fecd348c2a?q=90&w=480&h=270")';
+            } else {
+                body.style.backgroundImage = 'url("https://store-images.s-microsoft.com/image/apps.29741.14581193029730121.5999c68b-7fd8-48ec-b0cb-3e37e1d7ec03.38839d35-0654-480a-b909-a5107b3f9d14?q=90&w=480&h=270")';
+            }
+            isDefaultBackground = !isDefaultBackground;
+        });
+    </script>
+</body>
+</html>
